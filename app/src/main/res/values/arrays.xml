@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="main_tab_item">
+        <item>服务管家</item>
+        <item>微信精选</item>
+        <item>美女社区</item>
+        <item>个人中心</item>
+    </array>
+</resources>
