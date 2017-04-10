@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.dqr.www.smartbutler.R;
+import com.dqr.www.smartbutler.utils.SystemBarHelper;
 
 /**
  * Description：Activity 基类
@@ -32,6 +33,9 @@ public abstract class BaseActivity extends AppCompatActivity implements Toolbar.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setUpContentView();
+
+        SystemBarHelper.tintStatusBar(this,getResources().getColor(R.color.colorPrimary));
+
         setUpView();
         setUpData(savedInstanceState);
     }

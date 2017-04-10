@@ -1,5 +1,7 @@
 package com.dqr.www.smartbutler;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -27,6 +29,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private static String[] mTitles;
     private List<Fragment> mFragments;
+
+    public static void start(Context context){
+        Intent intent = new Intent(context,MainActivity.class);
+        context.startActivity(intent);
+    }
 
     @Override
     protected void setUpContentView() {
