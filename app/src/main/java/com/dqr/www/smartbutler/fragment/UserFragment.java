@@ -9,18 +9,19 @@ import com.dqr.www.smartbutler.core.BaseFragment;
 /**
  * Description：
  * Author：LiuYM
- * Date： 2017-04-06 11:53
+ * Date： 2017-04-10 8:50
  */
 
-public class ButlerFragment extends BaseFragment {
+public class UserFragment extends BaseFragment {
     private String mContent;
     private TextView textView;
 
-    public static ButlerFragment getInstance(){
-        ButlerFragment butlerFragment = new ButlerFragment();
-        butlerFragment.enableLazyLoad();
-        return butlerFragment;
+    public static UserFragment getInstance(){
+        UserFragment userFragment = new UserFragment();
+        userFragment.enableLazyLoad();
+        return userFragment;
     }
+
 
     @Override
     protected int getContentResId() {
@@ -33,15 +34,14 @@ public class ButlerFragment extends BaseFragment {
 
     }
 
+
     @Override
     protected void setLoadData() {
-        mContent="ButlerFragment";
+        mContent="UserFragment";
     }
 
     @Override
     protected void setUpData() {
         textView.setText(mContent);
     }
-
-
 }

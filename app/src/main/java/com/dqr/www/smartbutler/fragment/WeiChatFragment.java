@@ -9,17 +9,17 @@ import com.dqr.www.smartbutler.core.BaseFragment;
 /**
  * Description：
  * Author：LiuYM
- * Date： 2017-04-06 11:53
+ * Date： 2017-04-10 8:49
  */
 
-public class ButlerFragment extends BaseFragment {
+public class WeiChatFragment extends BaseFragment {
     private String mContent;
     private TextView textView;
 
-    public static ButlerFragment getInstance(){
-        ButlerFragment butlerFragment = new ButlerFragment();
-        butlerFragment.enableLazyLoad();
-        return butlerFragment;
+    public static WeiChatFragment getInstance(){
+        WeiChatFragment fragment = new WeiChatFragment();
+        fragment.enableLazyLoad();
+        return fragment;
     }
 
     @Override
@@ -29,19 +29,17 @@ public class ButlerFragment extends BaseFragment {
 
     @Override
     protected void setUpView(View view) {
-        textView= (TextView) view.findViewById(R.id.tv_content);
+         textView= (TextView) view.findViewById(R.id.tv_content);
 
     }
 
     @Override
     protected void setLoadData() {
-        mContent="ButlerFragment";
+        mContent="WeiChatFragment";
     }
 
     @Override
     protected void setUpData() {
         textView.setText(mContent);
     }
-
-
 }

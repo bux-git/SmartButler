@@ -1,153 +1,106 @@
 package com.dqr.www.smartbutler.core;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * Description：
+ * Description：Fragment基类,
+ * 如果使用懒加载，加载数据放入setLoadData
+ * 为View 设置数据在setUpData中
  * Author：LiuYM
  * Date： 2017-04-06 11:54
  */
 
 public abstract class BaseFragment extends Fragment {
-    private static final String TAG = "BaseFragment";
-    private boolean isVisibleToUser;//对用户可见
-    private boolean isViewInitialized;
-    private boolean isDataInitialized;
-    private boolean isLazyLoadEnabled;
+    private boolean isViewCreated;//控件是否初始化完成
+    private boolean isDataLoaded;//数据是否已经加载
+    private boolean isLazyLoad;//是否进行懒加载
 
-    public abstract void setUpView(View view);
-    public abstract void setUpData();
+    /**
+     * 布局Id
+     *
+     * @return
+     */
+    protected abstract int getContentResId();
 
-    public void enableLazyLoad(){
-        isLazyLoadEnabled=true;
+    /**
+     * 初始化View
+     */
+    protected abstract void setUpView(View view);
+
+    /**
+     * 加载数据
+     */
+    protected abstract void setLoadData();
+
+    /**
+     * 为View数据设置Data
+     */
+    protected abstract void setUpData();
+
+    /**
+     * 设置进行懒加载
+     */
+    public void enableLazyLoad() {
+        isLazyLoad = true;
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        Log.e(TAG, "onAttach: ");
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Log.e(TAG, "onCreate: " );
-    }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        this.isVisibleToUser=isVisibleToUser;
-        Log.e(TAG, "setUserVisibleHint: "+isVisibleToUser );
         checkIfLoadData();
     }
+
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        Log.e(TAG, "onCreateView: " );
-        return super.onCreateView(inflater, container, savedInstanceState);
+        return inflater.inflate(getContentResId(), container, false);
     }
+
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Log.e(TAG, "onViewCreated: " );
-
-        if(!isLazyLoadEnabled){
-            setUpView(view);
+        isViewCreated = true;
+        setUpView(view);
+        if (!isLazyLoad) {
             setUpData();
-        }else{
-            setUpView(view);
-            isViewInitialized=true;
-            if(savedInstanceState!=null){
+        } else {
+            if (savedInstanceState != null) {
                 onRestoreInstanceState(savedInstanceState);
             }
-            if(isDataInitialized){
+            if (isDataLoaded) {
                 setUpData();
-            }else{
+            } else {
                 checkIfLoadData();
             }
+
         }
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        Log.e(TAG, "onActivityCreated: ");
+    private void onRestoreInstanceState(Bundle savedInstanceState) {
+        isDataLoaded = true;
     }
 
-    @Override
-    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
-        Log.e(TAG, "onViewStateRestored: ");
-        super.onViewStateRestored(savedInstanceState);
-    }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        isViewInitialized=false;
-        Log.e(TAG, "onDestroy: " );
+        isViewCreated = false;
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        Log.e(TAG, "onStart: " );
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.e(TAG, "onResume: " );
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.e(TAG, "onPause: " );
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        Log.e(TAG, "onSaveInstanceState: " );
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        Log.e(TAG, "onDetach: " );
-    }
-
-    @Override
-    public void onInflate(Context context, AttributeSet attrs, Bundle savedInstanceState) {
-        super.onInflate(context, attrs, savedInstanceState);
-        Log.e(TAG, "onInflate: " );
-    }
-
-    @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        Log.e(TAG, "onHiddenChanged: " );
-    }
-
-    private void checkIfLoadData(){
-        if(isVisibleToUser&&isViewInitialized&&!isDataInitialized){
-            isDataInitialized=true;
+    private void checkIfLoadData() {
+        //第一次加载数据
+        if (getUserVisibleHint() && isViewCreated && !isDataLoaded) {
+            setLoadData();
             setUpData();
+            isDataLoaded = true;
         }
-    }
-
-    protected void onRestoreInstanceState(Bundle savedInstanceState){
-        isDataInitialized=true;
     }
 }
