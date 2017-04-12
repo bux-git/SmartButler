@@ -1,9 +1,13 @@
 package com.dqr.www.smartbutler.utils;
 
 import android.content.Context;
+import android.support.annotation.IntDef;
 import android.widget.Toast;
 
 import com.dqr.www.smartbutler.application.BaseApplication;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 import es.dmoral.toasty.Toasty;
 
@@ -18,8 +22,14 @@ public class ToastUtil {
     public static final int WARNING = 4;
     public static final int NORMAL = 5;
 
+    @IntDef({ERROR, INFO, SUCCESS, WARNING ,NORMAL})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface ToastType{
 
-    public static String showShort(int toastType,int resId){
+    }
+
+
+    public static String showShort(@ToastType int toastType,int resId){
         String msg=BaseApplication.getInstance().getString(resId);
         showToast(toastType
                 ,msg
@@ -27,11 +37,11 @@ public class ToastUtil {
         return msg;
     }
 
-    public static void showShort(int toastType,String str){
+    public static void showShort(@ToastType int toastType,String str){
         showToast(toastType,str,Toast.LENGTH_SHORT);
     }
 
-    public static String showLong(int toastType,int resId){
+    public static String showLong(@ToastType int toastType,int resId){
         String msg=BaseApplication.getInstance().getString(resId);
         showToast(toastType
                 ,msg
@@ -39,7 +49,7 @@ public class ToastUtil {
         return msg;
     }
 
-    public static void showLong(int toastType,String str){
+    public static void showLong(@ToastType int toastType,String str){
         showToast(toastType,str,Toast.LENGTH_LONG);
     }
 

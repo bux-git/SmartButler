@@ -3,6 +3,8 @@ package com.dqr.www.smartbutler.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.dqr.www.smartbutler.application.BaseApplication;
+
 /**
  * Description：SharedPreferences 工具类
  * Author：LiuYM
@@ -12,18 +14,17 @@ import android.content.SharedPreferences;
 public class ShareUtil {
     private static final String FILE_NAME="smart_butler";
 
-    public static SharedPreferences getShared(Context context){
-        return context.getSharedPreferences(FILE_NAME,Context.MODE_PRIVATE);
+    public static SharedPreferences getShared(){
+        return BaseApplication.getInstance().getSharedPreferences(FILE_NAME,Context.MODE_PRIVATE);
     }
 
     /**
      * 保存数据
-     * @param context
      * @param key
      * @param value
      */
-    public static void put(Context context,String key,Object value){
-        SharedPreferences preferences =getShared(context);
+    public static void put(String key,Object value){
+        SharedPreferences preferences =getShared();
         SharedPreferences.Editor editor=preferences.edit();
         if(value instanceof String){
             editor.putString(key, (String) value);
@@ -41,13 +42,13 @@ public class ShareUtil {
 
     /**
      * 获取数据
-     * @param context
+
      * @param key
      * @param defaultValue
      * @return
      */
-    public static Object get(Context context,String key,Object defaultValue){
-        SharedPreferences preferences=getShared(context);
+    public static Object get(String key,Object defaultValue){
+        SharedPreferences preferences=getShared();
         if(defaultValue instanceof String){
            return preferences.getString(key, (String) defaultValue);
         }else if(defaultValue instanceof Integer){
@@ -64,11 +65,10 @@ public class ShareUtil {
 
     /**
      * 移除key value数据对
-     * @param context
      * @param key
      */
-    public static void removeByKey(Context context,String key){
-        SharedPreferences sp = getShared(context);
+    public static void removeByKey(String key){
+        SharedPreferences sp = getShared();
         SharedPreferences.Editor editor=sp.edit();
         editor.remove(key);
         editor.apply();
@@ -77,10 +77,9 @@ public class ShareUtil {
 
     /**
      * 清除所有key-value
-     * @param context
      */
-    public static void clearAll(Context context){
-        SharedPreferences sp = getShared(context);
+    public static void clearAll(){
+        SharedPreferences sp = getShared();
         SharedPreferences.Editor editor = sp.edit();
         editor.apply();
     }

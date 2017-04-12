@@ -60,10 +60,10 @@ public class SplashActivity extends AppCompatActivity {
 
 
     private void gotoNext() {
-        boolean isFirst= (boolean) ShareUtil.get(this,Constant.FIRST_OPEN,true);
+        boolean isFirst= (boolean) ShareUtil.get(Constant.FIRST_OPEN,true);
         if(isFirst){//第一次打开应用 进入引导页
             GuideActivity.start(this);
-            ShareUtil.put(this,FIRST_OPEN,false);
+            ShareUtil.put(FIRST_OPEN,false);
         }else{
             //已经登录 进入主页
            // MainActivity.start(this);

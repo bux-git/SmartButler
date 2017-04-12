@@ -14,6 +14,7 @@ import com.dqr.www.smartbutler.R;
 import com.dqr.www.smartbutler.core.BaseActivity;
 import com.dqr.www.smartbutler.entity.User;
 import com.dqr.www.smartbutler.utils.ToastUtil;
+import com.dqr.www.smartbutler.utils.ValidationUtil;
 
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
@@ -93,12 +94,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         String pwd2=mEtPassword2.getText().toString().trim();
         String email=mEtEmail.getText().toString().trim();
 
-        if(TextUtils.isEmpty(userName)||
-                TextUtils.isEmpty(age)||
-                TextUtils.isEmpty(desc)||
-                TextUtils.isEmpty(pwd1)||
-                TextUtils.isEmpty(pwd2)||
-                TextUtils.isEmpty(email)){
+        if(ValidationUtil.isEmpty(userName,age,desc,pwd1,pwd2,email)){
             ToastUtil.showShort(ToastUtil.WARNING,R.string.register_no_full);
             return;
         }
@@ -106,6 +102,15 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         if(!pwd1.equals(pwd2)){
             ToastUtil.showShort(ToastUtil.WARNING,R.string.register_no_same);
             return;
+        }
+
+        if(!ValidationUtil.isEmail(email)){
+            ToastUtil.showShort(ToastUtil.WARNING,R.string.register_error_email);
+            return;
+        }
+
+        if(TextUtils.isEmpty(desc)){
+            desc = getString(R.string.register_desc);
         }
 
         User user = new User();
@@ -121,7 +126,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             @Override
             public void done(User user, BmobException e) {
                 if(e==null){
-                    ToastUtil.showLong(ToastUtil.SUCCESS,R.string.register_success);
+                    ToastUtil.showShort(ToastUtil.SUCCESS,R.string.register_success);
                     finish();
                 }else{
                     ToastUtil.showShort(ToastUtil.ERROR, e.toString());

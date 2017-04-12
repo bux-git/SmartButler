@@ -12,15 +12,13 @@
             android:id="@+id/et_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="*用户名"
-            android:textColorHint="@color/colorAccent"
+            android:hint="用户名"
             android:maxLines="1"/>
         <EditText
             android:id="@+id/et_age"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="*年龄"
-            android:textColorHint="@color/colorAccent"
             android:inputType="number"
             android:maxLines="1"/>
         <EditText
@@ -40,7 +38,6 @@
                 android:layout_height="wrap_content"
                 android:checked="true"
                 android:text="男"/>
-
             <RadioButton
                 android:id="@+id/rb_girl"
                 android:layout_width="wrap_content"
@@ -53,7 +50,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="*密码"
-            android:textColorHint="@color/colorAccent"
             android:inputType="textPassword"
             android:maxLength="18"
             android:maxLines="1"/>
@@ -62,7 +58,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="*再输入一次"
-            android:textColorHint="@color/colorAccent"
             android:inputType="textPassword"
             android:maxLength="18"
             android:maxLines="1"/>
@@ -71,7 +66,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="*邮箱"
-            android:textColorHint="@color/colorAccent"
             android:inputType="textEmailAddress"
             android:maxLines="1"/>
         <TextView
@@ -84,9 +78,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
-            android:background="@drawable/round_btn_blue_selector"
-            android:text="@string/login_register"
-            android:textColor="@android:color/white"/>
+            style="@style/login_btn_style"
+            android:text="@string/login_register"/>
 
     </LinearLayout>
 </LinearLayout>

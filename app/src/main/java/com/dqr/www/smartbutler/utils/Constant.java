@@ -13,4 +13,9 @@ public class Constant {
     public static final String FIRST_OPEN ="first_open";//第一次打开应用
     public static final String BUGLY_APP_ID ="09ff84dc9e";//腾讯Bugly App Id
     public static final String BOMB_APP_ID ="56e1719cbe1ce7f6bdd62915c64d89c2";//Bomb App Id
+
+    //登录
+    public static final String IS_KEEP ="isKeep" ;//是否记住密码
+    public static final String USER_NAME ="userName" ;//帐号
+    public static final String USER_PASSWORD ="passWord" ;//密码
 }
