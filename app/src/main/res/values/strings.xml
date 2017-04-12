@@ -1,4 +1,17 @@
 <resources>
     <string name="app_name">SmartButler</string>
     <string name="start_app">进入首页</string>
+    <string name="login">登录</string>
+    <string name="login_username">帐号</string>
+    <string name="login_password">密码</string>
+    <string name="login_login">登录</string>
+    <string name="login_register">注册</string>
+
+    <!--注册-->
+    <string name="reqister_title">注册</string>
+    <string name="register_no_full">信息不完整,请填写完整!</string>
+    <string name="register_no_same">两次密码不一致!</string>
+    <string name="register_success">注册成功</string>
+    <string name="load_msg">加载中</string>
+
 </resources>

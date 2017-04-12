@@ -7,8 +7,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
-import com.dqr.www.smartbutler.MainActivity;
 import com.dqr.www.smartbutler.R;
+import com.dqr.www.smartbutler.ui.login.LoginActivity;
 import com.dqr.www.smartbutler.utils.Constant;
 import com.dqr.www.smartbutler.utils.ShareUtil;
 import com.dqr.www.smartbutler.utils.UtilTools;
@@ -65,7 +65,10 @@ public class SplashActivity extends AppCompatActivity {
             GuideActivity.start(this);
             ShareUtil.put(this,FIRST_OPEN,false);
         }else{
-            MainActivity.start(this);
+            //已经登录 进入主页
+           // MainActivity.start(this);
+            //未登录进入登录页
+            LoginActivity.start(this);
         }
     }
 

@@ -3,12 +3,14 @@ package com.dqr.www.smartbutler.core;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.dqr.www.smartbutler.R;
 import com.dqr.www.smartbutler.utils.SystemBarHelper;
+import com.dqr.www.smartbutler.widget.LoadingDialog;
 
 /**
  * Description：Activity 基类
@@ -28,6 +30,8 @@ public abstract class BaseActivity extends AppCompatActivity implements Toolbar.
     public static final int MODE_BACK = 0;//返回
     public static final int MODE_NONE = 1;//无toolbar
     public static final int MODE_TITLE = 2;//标题
+
+    protected LoadingDialog mLoadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,5 +127,21 @@ public abstract class BaseActivity extends AppCompatActivity implements Toolbar.
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         return false;
+    }
+
+    public void dialogShow(String msg){
+        if(mLoadingDialog==null){
+            if(TextUtils.isEmpty(msg)){
+                msg = getString(R.string.load_msg);
+            }
+            mLoadingDialog = new LoadingDialog(this,msg);
+        }
+        mLoadingDialog.show();
+    }
+
+    public void dialogDismiss(){
+        if(mLoadingDialog!=null){
+            mLoadingDialog.dismiss();
+        }
     }
 }
